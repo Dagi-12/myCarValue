@@ -15,9 +15,11 @@ export class UsersService {
   findOne(id: number) {
     return this.repo.findOne({ where: { id } });
   }
+
   find(email: string) {
     return this.repo.find({ where: { email } });
   }
+
   async update(id: number, attributes: Partial<User>) {
     const user = await this.findOne(id);
     if (!user) {
@@ -26,6 +28,7 @@ export class UsersService {
     Object.assign(user, attributes);
     return this.repo.save(user);
   }
+
   async remove(id: number) {
     const user = await this.findOne(id);
     if (!user) {

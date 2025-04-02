@@ -8,8 +8,6 @@ import {
   Query,
   Delete,
   NotFoundException,
-  UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -17,13 +15,14 @@ import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 import { serialize } from '../interceptors/serialize.interceptor';
 @Controller('auth')
+@serialize(UserDto)
 export class UsersController {
   constructor(private userService: UsersService) {}
   @Post('/signUp')
   createUser(@Body() body: CreateUserDto) {
     this.userService.create(body.email, body.password);
   }
-  @serialize(UserDto)
+
   @Get('/:id')
   async findUser(@Param('id') id: string) {
     const user = await this.userService.findOne(parseInt(id));

@@ -19,10 +19,8 @@ import { serialize } from '../interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
 import { User } from './users.entity';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 @Controller('auth')
 @serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private userService: UsersService,
